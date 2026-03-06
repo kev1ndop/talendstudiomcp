@@ -1,0 +1,31 @@
+{
+  "workspace": {
+    "path": "/home/user/TalendWorkspace",
+    "default_project": "MY_PROJECT"
+  },
+  "studio": {
+    "path": "/opt/TalendStudio-8.0.1",
+    "java_home": "/usr/lib/jvm/java-11"
+  },
+  "tac": {
+    "url": "http://tac-server:8080/org.talend.administrator",
+    "timeout_ms": 30000
+  },
+  "security": {
+    "environment": "DEV",
+    "allowed_write_envs": ["DEV"],
+    "read_only": true,
+    "vault_provider": "env"
+  },
+  "safety": {
+    "circuit_breaker_max_failures": 5,
+    "circuit_breaker_reset_ms": 60000,
+    "max_retries_per_heal_cycle": 3,
+    "execution_timeout_ms": 600000,
+    "max_batch_jobs": 5
+  },
+  "audit": {
+    "log_path": null,
+    "redact_passwords": true
+  }
+}

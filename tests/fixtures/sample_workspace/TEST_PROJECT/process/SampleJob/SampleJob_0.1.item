@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<talendfile:ProcessType xmlns:talendfile="platform:/resource/org.talend.model/model/TalendFile.xsd" defaultContext="Default" name="SampleJob" version="0.1">
+  <context confirmationNeeded="false" name="Default">
+    <contextParameter comment="Database host" name="db_host" prompt="db_host?" promptNeeded="false" type="id_String" value="localhost"/>
+    <contextParameter comment="Database port" name="db_port" prompt="db_port?" promptNeeded="false" type="id_Integer" value="5432"/>
+    <contextParameter comment="Database password" name="db_password" prompt="db_password?" promptNeeded="true" type="id_Password" value="enc:system.encryption.key.v1:secret123"/>
+  </context>
+  <node componentName="tDBInput" componentVersion="0.102" offsetLabelX="0" offsetLabelY="0" posX="128" posY="160">
+    <elementParameter field="TEXT" name="UNIQUE_NAME" value="tDBInput_1"/>
+    <elementParameter field="TEXT" name="QUERY" value="SELECT id, name, email FROM users WHERE active = true"/>
+    <elementParameter field="REPOSITORY_SCHEMA_TYPE" name="PROPERTY:REPOSITORY_PROPERTY_TYPE" value="metadata/connections/postgres_main_0.1"/>
+    <metadata connector="FLOW" name="tDBInput_1">
+      <column comment="" key="true" label="id" nullable="false" pattern="" talendType="id_Integer"/>
+      <column comment="" key="false" label="name" nullable="true" pattern="" talendType="id_String" length="255"/>
+      <column comment="" key="false" label="email" nullable="true" pattern="" talendType="id_String" length="255"/>
+    </metadata>
+  </node>
+  <node componentName="tMap" componentVersion="0.102" offsetLabelX="0" offsetLabelY="0" posX="320" posY="160">
+    <elementParameter field="TEXT" name="UNIQUE_NAME" value="tMap_1"/>
+    <elementParameter field="TEXT" name="MAPPING" value=""/>
+    <metadata connector="FLOW" name="out1">
+      <column comment="" key="true" label="id" nullable="false" talendType="id_Integer"/>
+      <column comment="" key="false" label="name_upper" nullable="true" talendType="id_String" length="255"/>
+      <column comment="" key="false" label="email" nullable="true" talendType="id_String" length="255"/>
+      <column comment="" key="false" label="processed_date" nullable="false" talendType="id_Date" pattern="yyyy-MM-dd"/>
+    </metadata>
+  </node>
+  <node componentName="tDBOutput" componentVersion="0.102" offsetLabelX="0" offsetLabelY="0" posX="512" posY="160">
+    <elementParameter field="TEXT" name="UNIQUE_NAME" value="tDBOutput_1"/>
+    <elementParameter field="TEXT" name="DBTABLE" value="processed_users"/>
+    <elementParameter field="TEXT" name="DATA_ACTION" value="INSERT_OR_UPDATE"/>
+    <elementParameter field="TEXT" name="COMMIT_EVERY" value="1000"/>
+  </node>
+  <node componentName="tLogRow" componentVersion="0.102" offsetLabelX="0" offsetLabelY="0" posX="512" posY="320">
+    <elementParameter field="TEXT" name="UNIQUE_NAME" value="tLogRow_1"/>
+    <elementParameter field="CHECK" name="TABLE_PRINT" value="true"/>
+  </node>
+  <node componentName="tRunJob" componentVersion="0.102" offsetLabelX="0" offsetLabelY="0" posX="700" posY="160">
+    <elementParameter field="TEXT" name="UNIQUE_NAME" value="tRunJob_1"/>
+    <elementParameter field="TEXT" name="PROCESS" value="NotificationJob"/>
+    <elementParameter field="CHECK" name="TRANSMIT_WHOLE_CONTEXT" value="true"/>
+  </node>
+  <connection connectorName="FLOW" label="row1" lineStyle="0" metaname="tDBInput_1" offsetLabelX="0" offsetLabelY="0" source="tDBInput_1" target="tMap_1"/>
+  <connection connectorName="FLOW" label="out1" lineStyle="0" metaname="out1" offsetLabelX="0" offsetLabelY="0" source="tMap_1" target="tDBOutput_1"/>
+  <connection connectorName="REJECT" label="rejects" lineStyle="0" metaname="out1" offsetLabelX="0" offsetLabelY="0" source="tMap_1" target="tLogRow_1"/>
+  <connection connectorName="SUBJOB_OK" label="" lineStyle="2" offsetLabelX="0" offsetLabelY="0" source="tDBOutput_1" target="tRunJob_1"/>
+</talendfile:ProcessType>
