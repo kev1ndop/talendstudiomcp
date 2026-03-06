@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<DatabaseConnection xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="metadata:DatabaseConnection" label="postgres_main" name="postgres_main" version="0.1" databaseType="PostgreSQL" serverName="localhost" port="5432" databaseName="mydb" username="app_user" Password="enc:system.encryption.key.v1:encrypted_password">
+  <column label="id" talendType="id_Integer" nullable="false" key="true"/>
+  <column label="name" talendType="id_String" nullable="true" length="255"/>
+</DatabaseConnection>

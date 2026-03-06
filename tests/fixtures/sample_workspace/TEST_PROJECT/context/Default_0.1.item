@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ContextType xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" name="Default" version="0.1">
+  <contextParameter name="db_host" type="id_String" value="localhost" prompt="Database host?" comment="PostgreSQL host"/>
+  <contextParameter name="db_port" type="id_Integer" value="5432" prompt="Database port?" comment="PostgreSQL port"/>
+  <contextParameter name="db_name" type="id_String" value="mydb" prompt="Database name?" comment=""/>
+  <contextParameter name="db_user" type="id_String" value="app_user" prompt="Database user?" comment=""/>
+  <contextParameter name="db_password" type="id_Password" value="enc:system.encryption.key.v1:secret" prompt="Database password?" comment="Encrypted"/>
+  <contextParameter name="output_path" type="id_String" value="/data/output" prompt="Output path?" comment="File output directory"/>
+</ContextType>
